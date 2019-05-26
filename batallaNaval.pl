@@ -33,9 +33,11 @@ prompt_number(Prompt, Number) :-
 :- initialization(main).
 main :-
   repeat,
-  nl,prompt_number('Ingresa la fila a donde quieres disparar: ', X),
-  nl,prompt_number('Ingresa la columna de disparo: ', Y),
+  board(_,_),
+  nl,prompt_number('Ingresa la fila a donde quieres disparar', X),
+  nl,prompt_number('Ingresa la columna de disparo', Y),
   fire_at(X, Y, State),
   (ship_at(X, Y) ->
+
     write('¡Ganaste!'), nl, nl, halt ;
     write('Sigue intentando...'), nl, nl, fail).
