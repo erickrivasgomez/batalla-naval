@@ -22,8 +22,8 @@ ship_at(X, Y) :-
 
 fire_at(X, Y, State) :-
   (ship_at(X, Y) ->
-    write('a hit, a very palpable hit!'), nl ;
-    write('he shoots, he scores... not!'), nl).
+    write('¡Buen disparo!'), nl, nl;
+    write('Dispara de nuevo'), nl, nl).
 
 prompt_number(Prompt, Number) :-
   write(Prompt),
@@ -33,9 +33,12 @@ prompt_number(Prompt, Number) :-
 :- initialization(main).
 main :-
   repeat,
-  prompt_number('enter row number', Row),
-  prompt_number('enter column number', Col),
+  write('#######################################').
+  write('     Bienvenidos a Batalla Naval').
+  write('#######################################').
+  nl,prompt_number('Ingresa la fila a donde quieres disparar: ', Row),
+  nl,prompt_number('Ingresa la columna de disparo: ', Col),
   fire_at(Row, Col, State),
   (ship_at(Row, Col) ->
-    write('you won!'), nl, halt ;
-    write('keep trying!'), nl, fail).
+    write('¡Ganaste!'), nl, halt ;
+    write('Sigue intentando...'), nl, fail).
