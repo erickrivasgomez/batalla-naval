@@ -1,4 +1,4 @@
-#!/usr/bin/env gprolog --consult-file
+#!/usr/bin/env gprolog --consult-file batallaNaval.pl
 
 % Simplest possible battleship game:
 %   - single player
@@ -20,10 +20,10 @@ ship_at(X, Y) :-
   column_at(Y, Row, Cell),
   Cell = 1.
 
-fire_at(X, Y, State) :-
-  (ship_at(X, Y) ->
-    write('¡Buen disparo!'), nl, nl;
-    write('Dispara de nuevo'), nl, nl).
+fire_at(_, Y, State) :-
+  (ship_at(_, Y) ->
+    nl, write('¡Buen disparo!'), nl;
+    nl, write('Dispara de nuevo'), nl).
 
 prompt_number(Prompt, Number) :-
   write(Prompt),
@@ -33,9 +33,9 @@ prompt_number(Prompt, Number) :-
 :- initialization(main).
 main :-
   repeat,
-  nl,prompt_number('Ingresa la fila a donde quieres disparar: ', Row),
-  nl,prompt_number('Ingresa la columna de disparo: ', Col),
-  fire_at(Row, Col, State),
-  (ship_at(Row, Col) ->
-    write('¡Ganaste!'), nl, halt ;
-    write('Sigue intentando...'), nl, fail).
+  nl,prompt_number('Ingresa la fila a donde quieres disparar: ', _),
+  nl,prompt_number('Ingresa la columna de disparo: ', _),
+  fire_at(_, _, State),
+  (ship_at(_, _) ->
+    write('¡Ganaste!'), nl, nl, halt ;
+    write('Sigue intentando...'), nl, nl, fail).
