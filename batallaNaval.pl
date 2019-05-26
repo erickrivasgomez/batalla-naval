@@ -33,9 +33,6 @@ prompt_number(Prompt, Number) :-
 :- initialization(main).
 main :-
   repeat,
-  write('#######################################').
-  write('     Bienvenidos a Batalla Naval').
-  write('#######################################').
   nl,prompt_number('Ingresa la fila a donde quieres disparar: ', Row),
   nl,prompt_number('Ingresa la columna de disparo: ', Col),
   fire_at(Row, Col, State),
