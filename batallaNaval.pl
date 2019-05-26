@@ -20,8 +20,8 @@ ship_at(X, Y) :-
   column_at(Y, Row, Cell),
   Cell = 1.
 
-fire_at(_, Y, State) :-
-  (ship_at(_, Y) ->
+fire_at(_, _, _) :-
+  (ship_at(_, _) ->
     nl, write('¡Buen disparo!'), nl;
     nl, write('Dispara de nuevo'), nl).
 
@@ -35,7 +35,7 @@ main :-
   repeat,
   nl,prompt_number('Ingresa la fila a donde quieres disparar: ', _),
   nl,prompt_number('Ingresa la columna de disparo: ', _),
-  fire_at(_, _, State),
+  fire_at(_, _, _),
   (ship_at(_, _) ->
     write('¡Ganaste!'), nl, nl, halt ;
     write('Sigue intentando...'), nl, nl, fail).
