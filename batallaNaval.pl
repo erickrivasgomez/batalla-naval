@@ -5,7 +5,7 @@
 %   - one ship, hardcoded at position row 2, col 1
 %   - loop endlessly until you hit the ship
 
-board([[0, 0],
+board([[1, 1],
        [1, 0]]).
 
 row_at(X, Row) :-
