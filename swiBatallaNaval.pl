@@ -74,6 +74,8 @@ colocar_barco() :-
   nl.
 
 dispara_usuario() :-
+  write('####################################################'),nl,
+  write(' TURNO DE USUARIO'),nl,
   nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
   nl,leer_numero('Ingresa la columna de disparo', Y),nl,nl,
   (
@@ -85,10 +87,12 @@ dispara_usuario() :-
           nl;
           write('¡Ganaste!'), nl, halt
       );
-      write('Sigue intentando...'), nl, nl
+      write('Sigue intentando, usuario'), nl, nl
   ).
 
 dispara_pc() :-
+  write('####################################################'),nl,
+  write('                                         TURNO DE PC'),nl,
   write('                                           '),
   dimension(D),random(0, D, U), write(U), write(', '),
   dimension(D),random(0, D, V), write(V), nl,
@@ -103,7 +107,7 @@ dispara_pc() :-
           write('                                           ¡Ganaste PC!'),
           nl, halt
       );
-      write('                                           Sigue intentando... PC'),
+      write('                                           Sigue intentando, PC'),
       nl, nl
   ).
 
@@ -134,14 +138,12 @@ barco_para_pc() :-
   dimension(D),
   random(0, D, CoordXpc),
   %write('                                           '),
-  %write(CoordXpc),
-  %write(', '),
+  %write(CoordXpc),  // Descomentar estas 3 lineas para poder ver las coordenadas
+  %write(', '),      // de los barcos de PC
   random(0, D, CoordYpc),
   %write(CoordYpc),
-  nl,
   (
     barco_pc(CoordXpc, CoordYpc) ->
-      write('                                        Barco repetido'),nl,
       barco_para_pc();
       assert(barco_pc(CoordXpc, CoordYpc))
   ).
@@ -161,10 +163,10 @@ colocar_barcos(N) :-
 
 main :-
   mensaje_de_bienvenida(),
-  nl,nl,
+  nl,
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
-  nl, nl, write('Barcos: '), write(DimensionTablero),nl,
-  numero_barcos('Barcos:', DimensionTablero),nl,nl,
+  nl, write('Barcos: '), write(DimensionTablero),nl,
+  numero_barcos('Barcos:', DimensionTablero),nl,
   leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
   %AciertosUsuario is 0;
   %AciertosPC is 0;
