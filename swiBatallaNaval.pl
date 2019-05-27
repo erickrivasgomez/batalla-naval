@@ -49,25 +49,39 @@ colocar_barco() :-
 
 dispara_usuario() :-
   nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
-  nl,leer_numero('Ingresa la columna de disparo', Y),
+  nl,leer_numero('Ingresa la columna de disparo', Y),nl,nl
   (
     barco_pc(X, Y) ->
-    write('¡Ganaste!'), nl, nl, halt;
-    write('Sigue intentando...'), nl, nl
+      retract(barco_pc(X, Y)),
+      write('Le diste al barco de PC'),
+      (
+        barco_pc(_, _) ->
+          nl;
+          write('¡Ganaste!'), nl, halt
+      );
+      write('Sigue intentando...'), nl, nl
   ).
 
 dispara_pc() :-
+  write('                                           '),
   dimension(D),random(0, D, U), write(U), write(', '),
   dimension(D),random(0, D, V), write(V), nl,
   (
     barco(U, V) ->
-    write('                                           ¡Ganaste PC!'),
-    nl, nl, halt;
-    write('                                           Sigue intentando... PC'),
-    nl, nl
+      retract(barco(U, V)),
+      write('                                           ¡Disparaste al barco del usuario!'),
+      nl,
+      (
+        barco(_, _) ->
+          nl;
+          write('                                           ¡Ganaste PC!'),
+          nl, halt
+      );
+      write('                                           Sigue intentando... PC'),
+      nl, nl
   ).
 
-juego(0, QuienPrimero).
+juego(0).
 juego(N, QuienPrimero) :-
   N>0,
   write(N),nl,
@@ -78,9 +92,10 @@ juego(N, QuienPrimero) :-
     dispara_pc(),
     dispara_usuario()
   ),
+  nl,
 
-  M is N-1,
-  juego(M, QuienPrimero).
+  %M is N-1,
+  juego(N, QuienPrimero).
 
 barco_para_usuario() :-
   write('Coordenada X para barco: '),
@@ -124,5 +139,7 @@ main :-
   nl, nl, write('Barcos: '), write(DimensionTablero),nl,
   numero_barcos('Barcos:', DimensionTablero),nl,nl,
   leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
-  juego(3, QuienPrimero).
+  %AciertosUsuario is 0;
+  %AciertosPC is 0;
+  juego(DimensionTablero, QuienPrimero).
   main.
