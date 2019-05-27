@@ -95,33 +95,35 @@ colocar_barco() :-
 pertenece(X,[X|_]).
 pertenece(X,[_|R]):- pertenece(X,R).
 
-juego(0).
-juego(N) :-
-  N>0,
-  write(N),nl,
-  
+dispara_usuario() :-
   nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
   nl,leer_numero('Ingresa la columna de disparo', Y),
-  %disparar(X, Y, State),
   (
     barco_pc(X, Y) ->
     write('¡Ganaste!'), nl, nl, halt;
     write('Sigue intentando...'), nl, nl
-  ),
-    
+  ).
+
+dispara_pc() :-
   dimension(D),random(0, D, U), write(U), write(', '),
   dimension(D),random(0, D, V), write(V), nl,
-  %pc_dispara(U, V, State2),
   (
     barco(U, V) ->
     write('                                           ¡Ganaste PC!'),
     nl, nl, halt;
     write('                                           Sigue intentando... PC'),
     nl, nl
-  ),
+  ).
+
+juego(0, QuienPrimero).
+juego(N, QuienPrimero) :-
+  N>0,
+  write(N),nl,
+
+  dispara_usuario(),
 
   M is N-1,
-  juego(M).
+  juego(M, QuienPrimero).
 
 colocar_barcos(0).
 colocar_barcos(N) :-
@@ -136,6 +138,7 @@ colocar_barcos(N) :-
 
   dimension(D),
   random(0, D, CoordXpc),
+  write('                                           ')
   write(CoordXpc),
   write(', '),
   random(0, D, CoordYpc),
@@ -155,5 +158,5 @@ main :-
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, nl,
   numero_barcos('Barcos: <= 5', B),
-  juego(3).
+  juego(3, 5).
   main.
