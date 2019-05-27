@@ -107,11 +107,12 @@ barco_para_usuario() :-
 barco_para_pc() :-
   dimension(D),
   random(0, D, CoordXpc),
-  write('                                           '),
-  write(CoordXpc),
-  write(', '),
+  %write('                                           '),
+  %write(CoordXpc),
+  %write(', '),
   random(0, D, CoordYpc),
-  write(CoordYpc),nl,
+  %write(CoordYpc),
+  nl,
   (
     barco_pc(CoordXpc, CoordYpc) ->
       write('                                        Barco repetido'),nl,
