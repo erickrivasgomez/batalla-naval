@@ -1,5 +1,8 @@
 #!/usr/bin/env swipl batallaNaval.pl
 
+:- dynamic barco/2.
+:- dynamic barco_pc/2.
+
 leer_numero(Mensaje, Numero) :-
   write(Mensaje),
   write(': '),
@@ -16,9 +19,6 @@ dimension_tablero(Mensaje, Numero) :-
   write(Numero),nl.
 
 numero_barcos(Mensaje, Numero) :-
-  write(Mensaje),
-  write(': '),
-  read(Numero),
   assert(barcos(Numero)),
   colocar_barcos(Numero).
 
@@ -86,7 +86,7 @@ barco_para_usuario() :-
   write('Coordenada X para barco: '),
   read(CoordX),
   write('Coordenada Y para barco: '),
-  read(CoordY),
+  read(CoordY),nl,
   assert(barco(CoordX,CoordY)).
 
 barco_para_pc() :-
@@ -96,13 +96,17 @@ barco_para_pc() :-
   write(CoordXpc),
   write(', '),
   random(0, D, CoordYpc),
-  write(CoordYpc),
-  assert(barco_pc(CoordXpc, CoordYpc)),
-  nl.
+  write(CoordYpc),nl,
+  (
+    barco_pc(CoordXpc, CoordYpc) ->
+      write('                                        Barco repetido'),nl,
+      barco_para_pc();
+      assert(barco_pc(CoordXpc, CoordYpc))
+  ).
 
 colocar_barcos(0).
 colocar_barcos(N) :-
-  N>0,
+  N>0,nl,
   write(N),nl,
 
   barco_para_usuario(),
@@ -117,8 +121,8 @@ main :-
 
   nl,nl,
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
-  nl, nl,
-  numero_barcos('Barcos:', B),nl,nl,
+  nl, nl, write('Barcos: '), write(DimensionTablero),nl,
+  numero_barcos('Barcos:', DimensionTablero),nl,nl,
   leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
   juego(3, QuienPrimero).
   main.
