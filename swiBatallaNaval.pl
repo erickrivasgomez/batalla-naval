@@ -114,8 +114,10 @@ juego(N) :-
   %pc_dispara(U, V, State2),
   (
     barco(U, V) ->
-    write('¡Ganaste PC!'), nl, nl, halt;
-    write('Sigue intentando... PC'), nl, nl
+    write('                                           ¡Ganaste PC!'),
+    nl, nl, halt;
+    write('                                           Sigue intentando... PC'),
+    nl, nl
   ),
 
   M is N-1,
@@ -133,13 +135,13 @@ colocar_barcos(N) :-
   assert(barco(CoordX,CoordY)),
 
   dimension(D),
-  write(D),
   random(0, D, CoordXpc),
   write(CoordXpc),
   write(', '),
   random(0, D, CoordYpc),
   write(CoordYpc),
   assert(barco_pc(CoordXpc, CoordYpc)),
+  nl,
 
   M is N-1,
   colocar_barcos(M).
@@ -153,6 +155,5 @@ main :-
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, nl,
   numero_barcos('Barcos: <= 5', B),
-  write('Antes de juego'),
   juego(3).
   main.
