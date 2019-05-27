@@ -23,11 +23,11 @@ Ejecución en SWI-Prolog (desde la ruta del archivo):
 :- dynamic barco_pc/2.
 
 mensaje_de_bienvenida() :-
-  write('Erick Rivas Gomez - 2019'),
-  write('##################################################################'),
-  write('#######                  JUEGO BATALLA NAVAL               #######'),
-  write('#############                Bienvenidos           ###############'),
-  write('##################################################################').
+  write('Erick Rivas Gomez - 2019'),nl,
+  write('##################################################################'),nl,
+  write('#######                  JUEGO BATALLA NAVAL               #######'),nl,
+  write('#############                Bienvenidos           ###############'),nl,
+  write('##################################################################').nl,
 
 leer_numero(Mensaje, Numero) :-
   write(Mensaje),
