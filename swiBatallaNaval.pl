@@ -63,7 +63,12 @@ numero_barcos(Mensaje, Numero) :-
   write(': '),
   read(Numero),
   assert(barcos(Numero)),
-  colocar_barcos(Numero);
+  colocar_barcos(Numero).
+
+quien_primero(Mensaje, Numero) :-
+    write(Mensaje),
+    write(': '),
+    read(Numero).
 
 set_barcos(0).
 set_barcos(N) :- 
@@ -120,7 +125,12 @@ juego(N, QuienPrimero) :-
   N>0,
   write(N),nl,
 
-  dispara_usuario(),
+  (QuienPrimero == 1 ->
+    dispara_usuario(),
+    dispara_pc();
+    dispara_pc(),
+    dispara_usuario()
+  ),
 
   M is N-1,
   juego(M, QuienPrimero).
@@ -138,7 +148,7 @@ colocar_barcos(N) :-
 
   dimension(D),
   random(0, D, CoordXpc),
-  write('                                           ')
+  write('                                           '),
   write(CoordXpc),
   write(', '),
   random(0, D, CoordYpc),
@@ -157,6 +167,7 @@ main :-
   nl,nl,
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, nl,
-  numero_barcos('Barcos: <= 5', B),
-  juego(3, 5).
+  numero_barcos('Barcos:', B),nl,nl,
+  quien_primero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
+  juego(3, QuienPrimero).
   main.
