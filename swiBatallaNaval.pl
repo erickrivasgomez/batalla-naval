@@ -1,48 +1,5 @@
 #!/usr/bin/env swipl batallaNaval.pl
 
-%barco_pc(100, 100).
-%barco(100, 100).
-%dimension(100).
-
-%retract(barco_pc(100,100)).
-%retract(barco(100,100)).
-
-barco_en_x(X, Row) :-
-  tablero(Tablero),
-  nth0(X, Tablero, Row).
-
-barco_en_y(Y, Row, Barco) :-
-  nth0(Y, Row, Barco).
-
-barco_encontrado(X, Y) :-
-  barco_en_x(X, Row),
-  barco_en_y(Y, Row, Barco),
-  Barco = 1.
-
-disparar(X, Y, State) :-
-  (barco_encontrado(X, Y) ->
-    nl, write('¡Buen disparo!'), nl;
-    nl, write('Dispara de nuevo'), nl
-  ).
-
-barco_PC_x(U, Row) :-
-  tableroJugador(Tablero),
-  nth0(U, Tablero, Row).
-
-barco_PC_y(V, Row, Barco) :-
-  nth0(V, Row, Barco).
-
-barco_encontrado_por_PC(U, V) :-
-  barco_PC_x(U, Row),
-  barco_PC_y(V, Row, Barco),
-  Barco = 1.
-
-pc_dispara(U, V, State2) :-
-  (barco_encontrado_por_PC(U, V) ->
-    nl, write('¡Buen disparo PC!'), nl;
-    nl, write('Dispara de nuevo PC'), nl
-  ).
-
 leer_numero(Mensaje, Numero) :-
   write(Mensaje),
   write(': '),
@@ -64,11 +21,6 @@ numero_barcos(Mensaje, Numero) :-
   read(Numero),
   assert(barcos(Numero)),
   colocar_barcos(Numero).
-
-quien_primero(Mensaje, Numero) :-
-    write(Mensaje),
-    write(': '),
-    read(Numero).
 
 set_barcos(0).
 set_barcos(N) :- 
@@ -94,11 +46,6 @@ colocar_barco() :-
   assert(barco_pc(CoordXpc, CoordYpc)),
   write(CoordYpc),
   nl.
-
-%colocar_barco_pc() :-
-
-pertenece(X,[X|_]).
-pertenece(X,[_|R]):- pertenece(X,R).
 
 dispara_usuario() :-
   nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
@@ -172,6 +119,6 @@ main :-
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, nl,
   numero_barcos('Barcos:', B),nl,nl,
-  quien_primero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
+  leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
   juego(3, QuienPrimero).
   main.
