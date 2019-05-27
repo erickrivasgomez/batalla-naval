@@ -135,17 +135,14 @@ juego(N, QuienPrimero) :-
   M is N-1,
   juego(M, QuienPrimero).
 
-colocar_barcos(0).
-colocar_barcos(N) :-
-  N>0,
-  write(N),nl,
-  
+barco_para_usuario() :-
   write('Coordenada X para barco: '),
   read(CoordX),
   write('Coordenada Y para barco: '),
   read(CoordY),
-  assert(barco(CoordX,CoordY)),
+  assert(barco(CoordX,CoordY)).
 
+barco_para_pc() :-
   dimension(D),
   random(0, D, CoordXpc),
   write('                                           '),
@@ -154,11 +151,18 @@ colocar_barcos(N) :-
   random(0, D, CoordYpc),
   write(CoordYpc),
   assert(barco_pc(CoordXpc, CoordYpc)),
-  nl,
+  nl.
+
+colocar_barcos(0).
+colocar_barcos(N) :-
+  N>0,
+  write(N),nl,
+
+  barco_para_usuario(),
+  barco_para_pc(),
 
   M is N-1,
   colocar_barcos(M).
-
 
 :- initialization(main).
 
