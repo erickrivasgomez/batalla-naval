@@ -1,11 +1,7 @@
 # PROYECTO: Juego Batalla Naval en Prolog
 
-En este proyecto se desarrolla una versión electrónica del juego de batalla naval, bajo el lenguaje de programación Prolog.
-Se utilizarán reglas, hechos y predicados. Juegan usuario contra PC. El juego permite decidir la dimensión del tablero
-(cuadrado, por lo que solo se solicita un lado); el número de barcos es el mismo que la dimensión del tablero (lado)
-y son de dimensión 1; también permite elegir si el usuario juega primero, o la PC lo hace. 
-El juego termina cuando todos los barcos de un jugador son derribados.
-El juego no permite imprimir el tablero a la consola.
+En este proyecto se desarrolla una versión electrónica del juego batalla naval, bajo el lenguaje de programación Prolog. 
+
 
 ## Comenzando 🚀
 
@@ -55,9 +51,17 @@ Ejecutar desde **línea de comandos de SWI-Prolog**
 ?- ['swiBatallaNaval.pl'].
 ```
 
-### Nota 📦
+### Reglas del juego 📦
 
 El juego inicia inmediatamente cuando el archivo es ejecutado.
+
+* Juega usuario contra PC.
+* El juego permite decidir la dimensión del tablero (cuadrado, por lo que solo se solicita un lado).
+* El número de barcos es el mismo que la dimensión del tablero (lado).
+* Los barcos son de dimensión 1.
+* Se permite elegir si el usuario juega primero, o la PC lo hace.
+* El juego termina cuando todos los barcos de un jugador son derribados.
+* El juego no permite imprimir el tablero a la consola.
 
 ## Construido con 🛠️
 
