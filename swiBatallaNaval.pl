@@ -1,4 +1,4 @@
-#!/usr/bin/env swipl swiBatallaNaval.pl
+#! swiBatallaNaval.pl
 
 /*
 Juego BATALLA NAVAL en SWI-prolog
@@ -168,7 +168,5 @@ main :-
   nl, write('Barcos: '), write(DimensionTablero),nl,
   numero_barcos(DimensionTablero),nl,
   leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
-  %AciertosUsuario is 0;
-  %AciertosPC is 0;
   juego(DimensionTablero, QuienPrimero).
   main.
