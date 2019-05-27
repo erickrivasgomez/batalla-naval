@@ -1,10 +1,8 @@
 #!/usr/bin/env swipl batallaNaval.pl
 
-barco_pc(100, 100).
-barco_(100, 100).
-dimension(100).
-
-
+%barco_pc(100, 100).
+%barco(100, 100).
+%dimension(100).
 
 %retract(barco_pc(100,100)).
 %retract(barco(100,100)).
@@ -54,24 +52,24 @@ dimension_tablero(Mensaje, Numero) :-
   write(Mensaje),
   write(': '),
   read(Numero),
-  write(Numero),
-  asserta(dimension(Numero)),
-  retract(dimension(100)),
+  assert(dimension(Numero)),
+  %retract(dimension(100)),
   nl,
-  write('Dimension: ').
+  write('Dimension: '),
+  write(Numero),nl.
 
 numero_barcos(Mensaje, Numero) :-
   write(Mensaje),
   write(': '),
   read(Numero),
-  barcos(Numero),
-  set_barcos(Numero);
+  assert(barcos(Numero)),
+  colocar_barcos(Numero);
 
 set_barcos(0).
 set_barcos(N) :- 
   N>0,
   colocar_barco(),
-  colocar_barco_pc(),
+  %colocar_barco_pc(),
   nl,
   M is N-1,
   set_barcos(M).
@@ -81,47 +79,80 @@ colocar_barco() :-
   read(CoordX),
   write('Coordenada Y para barco: '),
   read(CoordY),
-  assert(barco(CoordX,CoordY)).
-
-colocar_barco_pc() :-
+  assert(barco(CoordX,CoordY)),
   dimension(D),
+  write(D),
+  random(0, D, CoordXpc),
+  write(CoordXpc),
+  write(', '),
+  random(0, D, CoordYpc),
+  assert(barco_pc(CoordXpc, CoordYpc)),
+  write(CoordYpc),
+  nl.
+
+%colocar_barco_pc() :-
+
+pertenece(X,[X|_]).
+pertenece(X,[_|R]):- pertenece(X,R).
+
+juego(0).
+juego(N) :-
+  N>0,
+  write(N),nl,
+  
+  nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
+  nl,leer_numero('Ingresa la columna de disparo', Y),
+  %disparar(X, Y, State),
+  (
+    barco_pc(X, Y) ->
+    write('¡Ganaste!'), nl, nl, halt;
+    write('Sigue intentando...'), nl, nl
+  ),
+    
+  dimension(D),random(0, D, U), write(U), write(', '),
+  dimension(D),random(0, D, V), write(V), nl,
+  %pc_dispara(U, V, State2),
+  (
+    barco(U, V) ->
+    write('¡Ganaste PC!'), nl, nl, halt;
+    write('Sigue intentando... PC'), nl, nl
+  ),
+
+  M is N-1,
+  juego(M).
+
+colocar_barcos(0).
+colocar_barcos(N) :-
+  N>0,
+  write(N),nl,
+  
+  write('Coordenada X para barco: '),
+  read(CoordX),
+  write('Coordenada Y para barco: '),
+  read(CoordY),
+  assert(barco(CoordX,CoordY)),
+
+  dimension(D),
+  write(D),
   random(0, D, CoordXpc),
   write(CoordXpc),
   write(', '),
   random(0, D, CoordYpc),
   write(CoordYpc),
-  nl,
-  (
-    barco_pc(CoordXpc, CoordYpc) ->
-      colocar_barco(),write('barco descartado');
-      assert(barco_pc(CoordXpc, CoordYpc))
-  ).
+  assert(barco_pc(CoordXpc, CoordYpc)),
 
-pertenece(X,[X|_]).
-pertenece(X,[_|R]):- pertenece(X,R).
+  M is N-1,
+  colocar_barcos(M).
+
+
+:- initialization(main).
 
 main :-
-    %nl,nl,
-    %dimension_tablero('Dimension del tablero:', DimensionTablero),
-    %nl, nl,
-    %numero_barcos('Barcos: <= 5', B),
 
-  repeat,
-    
-    nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
-    nl,leer_numero('Ingresa la columna de disparo', Y),
-    %disparar(X, Y, State),
-    (
-      barco_pc(X, Y) ->
-      write('¡Ganaste!'), nl, nl, halt;
-      write('Sigue intentando...'), nl, nl
-    ),
-    
-    dimension(D),random(0, D, U), write(U), write(', '),
-    dimension(D),random(0, D, V), write(V), nl,
-    %pc_dispara(U, V, State2),
-    (
-        barco(U, V) ->
-        write('¡Ganaste PC!'), nl, nl, halt;
-        write('Sigue intentando... PC'), nl, nl, fail
-    ).
+  nl,nl,
+  dimension_tablero('Dimension del tablero:', DimensionTablero), 
+  nl, nl,
+  numero_barcos('Barcos: <= 5', B),
+  write('Antes de juego'),
+  juego(3).
+  main.
