@@ -1,7 +1,33 @@
-#!/usr/bin/env swipl batallaNaval.pl
+#!/usr/bin/env swipl swiBatallaNaval.pl
+
+/*
+Juego BATALLA NAVAL en SWI-prolog
+Erick Rivas Gómez
+Programación Lógica y Funcional
+Ingeniería en Sistemas Computacionales
+Instituto Tecnológico de Morelia
+2019
+
+Ejecución en Windows y Linux:
+
+ruta\archivo> swipl swiBatallaNaval.pl
+ruta\archivo# swipl -s swiBatallaNaval.pl
+
+Ejecución en SWI-Prolog (desde la ruta del archivo):
+?- ['swiBatallaNaval.pl'].
+
+*/
+
 
 :- dynamic barco/2.
 :- dynamic barco_pc/2.
+
+mensaje_de_bienvenida() :-
+  write('                                         Erick Rivas Gomez - 2019')
+  write('################################################################################################################'),
+  write('#############                              JUEGO BATALLA NAVAL                                   ###############'),
+  write('#############                                  Bienvenidos                                       ###############'),
+  write('################################################################################################################').
 
 leer_numero(Mensaje, Numero) :-
   write(Mensaje),
@@ -134,7 +160,7 @@ colocar_barcos(N) :-
 :- initialization(main).
 
 main :-
-
+  mensaje_de_bienvenida(),
   nl,nl,
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, nl, write('Barcos: '), write(DimensionTablero),nl,
