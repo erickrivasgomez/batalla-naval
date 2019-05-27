@@ -44,7 +44,7 @@ dimension_tablero(Mensaje, Numero) :-
   write('Dimension: '),
   write(Numero),nl.
 
-numero_barcos(Mensaje, Numero) :-
+numero_barcos(Numero) :-
   assert(barcos(Numero)),
   colocar_barcos(Numero).
 
@@ -166,7 +166,7 @@ main :-
   nl,
   dimension_tablero('Dimension del tablero:', DimensionTablero), 
   nl, write('Barcos: '), write(DimensionTablero),nl,
-  numero_barcos('Barcos:', DimensionTablero),nl,
+  numero_barcos(DimensionTablero),nl,
   leer_numero('Primer turno para: Usuario(1), PC(Cualquier numero)', QuienPrimero),
   %AciertosUsuario is 0;
   %AciertosPC is 0;
