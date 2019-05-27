@@ -23,11 +23,11 @@ Ejecución en SWI-Prolog (desde la ruta del archivo):
 :- dynamic barco_pc/2.
 
 mensaje_de_bienvenida() :-
-  write('                                         Erick Rivas Gomez - 2019')
-  write('################################################################################################################'),
-  write('#############                              JUEGO BATALLA NAVAL                                   ###############'),
-  write('#############                                  Bienvenidos                                       ###############'),
-  write('################################################################################################################').
+  write('Erick Rivas Gomez - 2019'),
+  write('##################################################################'),
+  write('#######                  JUEGO BATALLA NAVAL               #######'),
+  write('#############                Bienvenidos           ###############'),
+  write('##################################################################').
 
 leer_numero(Mensaje, Numero) :-
   write(Mensaje),
@@ -75,7 +75,7 @@ colocar_barco() :-
 
 dispara_usuario() :-
   nl,leer_numero('Ingresa la fila a donde quieres disparar', X),
-  nl,leer_numero('Ingresa la columna de disparo', Y),nl,nl
+  nl,leer_numero('Ingresa la columna de disparo', Y),nl,nl,
   (
     barco_pc(X, Y) ->
       retract(barco_pc(X, Y)),
