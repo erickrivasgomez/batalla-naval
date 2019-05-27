@@ -37,19 +37,19 @@ cd batalla-naval
 
 ### Ejecución 🔧
 
-Ejecutar desde CMD en Windows
+Ejecutar desde **CMD en Windows**
 
 ```
 swipl swiBatallaNaval.pl
 ```
 
-Ejecutar desde TERMINAL en Linux
+Ejecutar desde **TERMINAL en Linux**
 
 ```
 swipl -s swiBatallaNaval.pl
 ```
 
-Ejecutar desde línea de comandos de SWI-Prolog
+Ejecutar desde **línea de comandos de SWI-Prolog**
 
 ```
 ?- ['swiBatallaNaval.pl'].
